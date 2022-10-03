@@ -40,11 +40,10 @@ public:
         // Assuming total order, this works.
         std::reverse(list.begin(), list.end());
     }
-
 };
 
 template <class T>
-std::ostream& operator<< (std::ostream& stream, SortedList<T> rhs) {
+std::ostream& operator<< (std::ostream& stream, const SortedList<T>& rhs) {
     std::string seperator = "";
     stream << "[";
     const std::vector<T>& list = rhs.get_const_list();
