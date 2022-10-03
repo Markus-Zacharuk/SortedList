@@ -20,7 +20,7 @@ public:
     void insert(const T& arg)
     {
         list.insert(upper_bound(list.begin(), list.end(), 
-            [reverse, comparator](const T& left, const T& right) -> bool { 
+            [is_reversed, comparator](const T& left, const T& right) -> bool {
                 return is_reversed ? !comparator(left, right) : comparator(left, right);
             }
             ));
