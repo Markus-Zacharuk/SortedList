@@ -11,7 +11,11 @@ private:
     std::vector<T> list;
     bool is_reversed;
     std::function<bool (const T&, const T&)> comparator;
-    void sort() { std::sort(list.begin(), list.end(), comparator); } // Sorts thr list.
+    void sort() { std::sort(list.begin(), list.end(),
+        [this](const T& left, const T& right) -> bool {
+            return is_reversed ? !comparator(left, right) : comparator(left, right);
+        }); 
+    }
 public:
     SortedList(bool is_reversed, std::function<bool(const T&, const T&)> comparator) :
         is_reversed{ is_reversed }, comparator{ comparator } {}
@@ -29,9 +33,10 @@ public:
     const std::vector<T>& get_const_list() const { return list; }
     // You can get the comparator, but aren't allowed to modify it.
     const std::vector<T>& get_const_comparator() const { return comparator; }
-    void set_comparator(std::function<bool(const T&, const T&)> new_comparator)
+    void set_comparator(std::function<bool(const T&, const T&)> new_comparator, bool new_is_reversed =false)
     {
         comparator = new_comparator;
+        is_reversed = new_is_reversed;
         sort();
     }
     void reverse()
